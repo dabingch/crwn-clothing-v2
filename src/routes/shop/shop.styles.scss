@@ -1,0 +1,5 @@
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // repeat(4, 1fr) means 4 columns, each column is 1fr (fraction) of the available space(evenly distributed)
+  gap: 50px 10px;
+}
