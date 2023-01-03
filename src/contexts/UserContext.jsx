@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
 	const value = { currentUser, setCurrentUser }
 
 	// Centralize the logic for listening to auth state changes
-	// Observer pattern
+	// Observer pattern, run once when the component mounts
 	useEffect(() => {
 		const unsubscribe = onAuthStateChangeListener((user) => {
 			// Only create a user document if the user exists
@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
 			console.log(user)
 		})
 
-		return unsubscribe // Clean up the actual method
+		return unsubscribe // Clean up the onAuthStateChangeListener method
 	}, [])
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>
