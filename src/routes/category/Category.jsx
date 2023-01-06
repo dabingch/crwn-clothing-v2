@@ -11,6 +11,8 @@ const Category = () => {
 	const { category } = useParams()
 	const { categoriesMap } = useContext(CategoriesContext)
 
+	// Due to async function, products will be empty object at first
+	// So only render products if it is exists
 	const [products, setProducts] = useState(categoriesMap[category])
 
 	useEffect(() => {
