@@ -5,9 +5,12 @@ import { UserContext } from '../../contexts/UserContext'
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
-import Button from '../button/Button'
-
-import { PaymentFormContainer, FormContainer } from './payment-form.styles'
+import {
+	PaymentFormContainer,
+	FormContainer,
+	PaymentButton,
+} from './payment-form.styles'
+import { BUTTON_TYPE_CLASSES } from '../button/Button'
 
 const PaymentForm = () => {
 	const stripe = useStripe()
@@ -73,9 +76,12 @@ const PaymentForm = () => {
 			<FormContainer onSubmit={paymentHandler}>
 				<h2>Credit Card Payment: </h2>
 				<CardElement />
-				<Button isLoading={isProcessingPayment} buttonType='inverted'>
+				<PaymentButton
+					isLoading={isProcessingPayment}
+					buttonType={BUTTON_TYPE_CLASSES.inverted}
+				>
 					Pay now
-				</Button>
+				</PaymentButton>
 			</FormContainer>
 		</PaymentFormContainer>
 	)
