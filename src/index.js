@@ -2,11 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from './App'
 import { UserProvider } from './contexts/UserContext'
 import { CategoriesProvider } from './contexts/CategoriesContext'
 import { CartProvider } from './contexts/CartContext'
 
+import { Elements } from '@stripe/react-stripe-js'
+import { stripePromise } from './utils/firebase/stripe/stripe'
+
+import App from './App'
 import './index.scss'
 
 ReactDOM.render(
@@ -15,7 +18,9 @@ ReactDOM.render(
 			<UserProvider>
 				<CategoriesProvider>
 					<CartProvider>
-						<App />
+						<Elements stripe={stripePromise}>
+							<App />
+						</Elements>
 					</CartProvider>
 				</CategoriesProvider>
 			</UserProvider>
