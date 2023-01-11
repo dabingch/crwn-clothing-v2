@@ -7,7 +7,7 @@ import { CategoriesProvider } from './contexts/CategoriesContext'
 import { CartProvider } from './contexts/CartContext'
 
 import { Elements } from '@stripe/react-stripe-js'
-import { stripePromise } from './utils/firebase/stripe/stripe'
+import { stripePromise } from './utils/stripe/stripe'
 
 import App from './App'
 import './index.scss'

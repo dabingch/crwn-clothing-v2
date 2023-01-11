@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 
 import CheckoutItem from '../../components/checkout-item/CheckoutItem'
+import PaymentForm from '../../components/payment-form/PaymentForm'
 
 import { CartContext } from '../../contexts/CartContext'
 
@@ -32,6 +33,7 @@ const Checkout = () => {
 				<CheckoutItem key={cartItem.id} cartItem={cartItem} />
 			))}
 			<span className='total'>Total: ${cartTotal}</span>
+			<PaymentForm />
 		</div>
 	)
 }
