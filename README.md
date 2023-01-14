@@ -18,3 +18,6 @@ npm install
 ```sh
 npm run start
 ```
+
+## Demo
+[Click to view the website](https://ch-crwn-clothing.netlify.app)
