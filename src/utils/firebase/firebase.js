@@ -47,6 +47,7 @@ export const signInWithGoogleRedirect = () =>
 // Initialize Firestore
 export const db = getFirestore()
 
+// Add categories and its documents to Firestore
 export const addCollectionAndDocuments = async (
 	collectionKey,
 	objectsToAdd
@@ -63,6 +64,7 @@ export const addCollectionAndDocuments = async (
 	console.log('done')
 }
 
+// Get documents of all categories and store them as a map
 export const getCategoriesAndDocuments = async () => {
 	const collectionRef = collection(db, 'categories')
 	const q = query(collectionRef)
@@ -77,13 +79,19 @@ export const getCategoriesAndDocuments = async () => {
 	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
 		const { title, items } = docSnapshot.data()
 		acc[title.toLowerCase()] = items
+
+		/**
+			acc: {
+				hats: items
+			}
+		*/
 		return acc
 	}, {})
 
 	return categoryMap
 }
 
-// Create document in Firestore
+// Create user document in Firestore
 export const createUserDocumentFromAuth = async (
 	userAuth,
 	additionalInformation = {}

@@ -4,6 +4,7 @@ import {
 	createUserDocumentFromAuth,
 } from '../utils/firebase/firebase'
 
+// Global state initialization
 export const UserContext = createContext({
 	currentUser: null,
 	setCurrentUser: () => null,
@@ -28,5 +29,6 @@ export const UserProvider = ({ children }) => {
 		return unsubscribe // Clean up the onAuthStateChangeListener method
 	}, [])
 
+	// Global state pass to the Context.provider
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

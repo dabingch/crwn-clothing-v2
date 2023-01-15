@@ -15,6 +15,10 @@ const Navbar = () => {
 	const { currentUser } = useContext(UserContext)
 	const { isCartOpen } = useContext(CartContext)
 
+	const handleSignOut = () => {
+		signOutUser()
+	}
+
 	return (
 		<Fragment>
 			<div className='navigation'>
@@ -26,10 +30,7 @@ const Navbar = () => {
 						SHOP
 					</Link>
 					{currentUser ? (
-						<span
-							className='nav-link'
-							onClick={() => signOutUser()}
-						>
+						<span className='nav-link' onClick={handleSignOut}>
 							SIGN OUT
 						</span>
 					) : (
