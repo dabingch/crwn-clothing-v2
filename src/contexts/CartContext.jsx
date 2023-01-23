@@ -1,4 +1,8 @@
 import { createContext, useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { UserContext } from './UserContext'
 
 const addCartItem = (cartItems, productToAdd) => {
 	// Find if cartItems contains the productToAdd
@@ -57,6 +61,10 @@ export const CartProvider = ({ children }) => {
 	const [cartCount, setCartCount] = useState(0)
 	const [cartTotal, setCartTotal] = useState(0)
 
+	const { currentUser } = useContext(UserContext)
+
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		const newCartCount = cartItems.reduce(
 			(total, cartItem) => total + cartItem.quantity,
@@ -76,6 +84,10 @@ export const CartProvider = ({ children }) => {
 	}, [cartItems])
 
 	const addItemToCart = (productToAdd) => {
+		if (!currentUser) {
+			navigate('/auth')
+			return
+		}
 		setCartItems(addCartItem(cartItems, productToAdd))
 	}
 
