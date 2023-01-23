@@ -91,6 +91,39 @@ export const getCategoriesAndDocuments = async () => {
 	return categoryMap
 }
 
+// TODO: Add a function to add cart item into Firestore, key is user id
+const cartCollectionRef = collection(db, 'cart')
+export const addCartToFirestore = async (userAuth, cartItem) => {
+	if (!userAuth) return
+
+	const userDocRef = doc(db, 'users', userAuth.uid)
+	const userSnapshot = await getDoc(userDocRef)
+
+	if (!userSnapshot.exists()) {
+		return
+	}
+
+	const cartDocRef = doc(cartCollectionRef, userAuth.uid)
+	const cartSnapshot = await getDoc(cartDocRef)
+
+	await setDoc(cartDocRef, {
+		item: cartItem,
+	})
+
+	// items: [{ name: 'hats', quantity: 1}]
+	// if (!cartSnapshot.exists()) {
+	// 	await setDoc(cartDocRef, {
+	// 		items: [cartItem],
+	// 	})
+	// } else {
+	// 	const { items } = cartSnapshot.data()
+	// 	const newItems = [...items, cartItem]
+	// 	await setDoc(cartDocRef, {
+	// 		items: newItems,
+	// 	})
+	// }
+}
+
 // Create user document in Firestore
 export const createUserDocumentFromAuth = async (
 	userAuth,

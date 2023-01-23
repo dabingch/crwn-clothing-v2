@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { UserContext } from './UserContext'
 
+import { addCartToFirestore } from '../utils/firebase/firebase'
+
 const addCartItem = (cartItems, productToAdd) => {
 	// Find if cartItems contains the productToAdd
 	const existingCartItem = cartItems.find(
@@ -89,14 +91,18 @@ export const CartProvider = ({ children }) => {
 			return
 		}
 		setCartItems(addCartItem(cartItems, productToAdd))
+		console.log(cartItems) //! cart is [] here
+		addCartToFirestore(currentUser, cartItems)
 	}
 
 	const removeItemFromCart = (cartItemToRemove) => {
 		setCartItems(removeCartItem(cartItems, cartItemToRemove))
+		addCartToFirestore(currentUser, cartItems)
 	}
 
 	const clearItemFromCart = (cartItemToClear) => {
 		setCartItems(clearCartItem(cartItems, cartItemToClear))
+		addCartToFirestore(currentUser, cartItems)
 	}
 
 	const value = {
