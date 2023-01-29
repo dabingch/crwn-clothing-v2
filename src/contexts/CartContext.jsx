@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { UserContext } from './UserContext'
 
-import { addCartToFirestore } from '../utils/firebase/firebase'
+import {
+	addCartToFirestore,
+	getCartsAndDocuments,
+} from '../utils/firebase/firebase'
 
 const addCartItem = (cartItems, productToAdd) => {
 	// Find if cartItems contains the productToAdd
@@ -85,24 +88,40 @@ export const CartProvider = ({ children }) => {
 		setCartTotal(newCartTotal)
 	}, [cartItems])
 
+	useEffect(() => {
+		// Get cart items from Firestore
+		getCartsAndDocuments(currentUser)
+			.then((items) => {
+				setCartItems(items)
+			})
+			.catch((err) => console.log(err))
+	}, [currentUser])
+
 	const addItemToCart = (productToAdd) => {
 		if (!currentUser) {
 			navigate('/auth')
 			return
 		}
+		const newCartItems = addCartItem(cartItems, productToAdd)
 		setCartItems(addCartItem(cartItems, productToAdd))
-		console.log(cartItems) //! cart is [] here
-		addCartToFirestore(currentUser, cartItems)
+		addCartToFirestore(currentUser, newCartItems)
 	}
 
 	const removeItemFromCart = (cartItemToRemove) => {
+		const newCartItems = removeCartItem(cartItems, cartItemToRemove)
 		setCartItems(removeCartItem(cartItems, cartItemToRemove))
-		addCartToFirestore(currentUser, cartItems)
+		addCartToFirestore(currentUser, newCartItems)
 	}
 
 	const clearItemFromCart = (cartItemToClear) => {
+		const newCartItems = clearCartItem(cartItems, cartItemToClear)
 		setCartItems(clearCartItem(cartItems, cartItemToClear))
-		addCartToFirestore(currentUser, cartItems)
+		addCartToFirestore(currentUser, newCartItems)
+	}
+
+	const loadCartItems = (cart) => {
+		console.log(cart)
+		setCartItems(cart)
 	}
 
 	const value = {
