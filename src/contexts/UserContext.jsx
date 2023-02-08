@@ -1,8 +1,7 @@
-import { createContext, useState, useEffect, useContext } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import {
 	onAuthStateChangeListener,
 	createUserDocumentFromAuth,
-	getCartsAndDocuments,
 } from '../utils/firebase/firebase'
 
 // Global state initialization

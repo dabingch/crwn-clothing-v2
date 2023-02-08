@@ -119,11 +119,6 @@ export const CartProvider = ({ children }) => {
 		addCartToFirestore(currentUser, newCartItems)
 	}
 
-	const loadCartItems = (cart) => {
-		console.log(cart)
-		setCartItems(cart)
-	}
-
 	const value = {
 		isCartOpen,
 		setIsCartOpen,

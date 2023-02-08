@@ -1,5 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import { Fragment, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import CartIcon from '../../components/cart-icon/CartIcon'
 import CartDropdown from '../../components/cart-dropdown/CartDropdown'
 import { ReactComponent as CrownLogo } from '../../assets/crown.svg'
@@ -12,11 +14,14 @@ import { signOutUser } from '../../utils/firebase/firebase'
 import './navigation.styles.scss'
 
 const Navbar = () => {
+	const navigate = useNavigate()
+
 	const { currentUser } = useContext(UserContext)
 	const { isCartOpen } = useContext(CartContext)
 
 	const handleSignOut = () => {
 		signOutUser()
+		navigate('/auth')
 	}
 
 	return (
